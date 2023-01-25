@@ -1,0 +1,1 @@
+This is the host app of a module federation application.

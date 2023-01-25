@@ -39,11 +39,15 @@ module.exports = {
     ],
   },
 
+  // Remote modules are added in line 48-49
   plugins: [
     new ModuleFederationPlugin({
       name: "host",
       filename: "remoteEntry.js",
-      remotes: {},
+      remotes: {
+        layout: "layout@http://localhost:3001/remoteEntry.js",
+        pages: "pages@http://localhost:3002/remoteEntry.js"
+      },
       exposes: {},
       shared: {
         ...deps,
