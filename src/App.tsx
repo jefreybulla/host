@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react"
+import React from 'react'
 import ReactDOM from "react-dom"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+import RecipeHome from "./RecipeHome"
 
 import "./index.scss"
 
@@ -10,33 +11,13 @@ import Header from "layout/Header"
 import Footer from "layout/Footer"
 
 function App() {
-  const [isRecipeAvailable, setIsRecipeAvailable] = useState(false)
-  const [recipeComponent, setRecipeComponent] = useState(() => (<>placeholder component</>))
 
-  function ImportedComponent(){
-    return recipeComponent
-  }
-
-  useEffect(() => {
-    // import non-critical federation modules
-    import("pages/Recipes").then((myModule) => {
-      console.log('Recipes import completed')
-      setIsRecipeAvailable(true)
-      setRecipeComponent( myModule.default)
-      })
-      .catch((err) => {
-        console.log('Recipes module unavailable')
-        console.log(err.message)
-      })
-  }, [])
-
-  function renderRecipes(){
-    if(isRecipeAvailable){
-      return <Route path='/' element={<ImportedComponent />}/>
-    }
-    else{
-      return <Route path='/' element={<>loading...</>}/>
-    }
+  function Home(){
+    return(
+      <div className='text-center'>
+        <a href='/recipe-home'>Recipes Home</a>
+      </div>
+    )
   }
 
   return(
@@ -44,7 +25,8 @@ function App() {
     <Header />
     <BrowserRouter>
       <Routes>
-        {renderRecipes()}
+      <Route path='/' element={< Home />}/>
+        <Route path='/recipe-home/*' element={< RecipeHome />}/>
       </Routes>
     </BrowserRouter>
     <Footer />
