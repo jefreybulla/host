@@ -10,7 +10,8 @@ export default function RecipeHome(){
   }
 
   useEffect(() => {
-    // import non-critical federation modules
+    // use dynamic importing for non-critical federation modules
+    // if you wish the website to keep running even if not all modules are available
     import("pages/Recipes").then((myModule) => {
       console.log('Recipes import completed')
       setUiState('ready')
